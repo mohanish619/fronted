@@ -5,7 +5,7 @@ phases:
     commands:
       - echo "Installing dependencies for CodeBuild..."
       - sudo yum update -y
-      - sudo yum install -y git curl
+      - sudo yum install -y git 
       - git --version
       - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
       - export NVM_DIR="$HOME/.nvm"
