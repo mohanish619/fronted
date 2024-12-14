@@ -27,17 +27,19 @@ phases:
     - npm run build || exit 1  # Ensure build fails loudly if there's an error
     - echo "Building Docker image..."
     - docker build -t frontend-image .
-
-
+  
   post_build:
     commands:
       - echo "Saving Docker image as tarball..."
       - docker save frontend-image > frontend_image.tar
-      - ls -l
+      - echo "Verifying frontend_image.tar exists:"
+      - ls -l   # Verify the file location
+      - echo "Creating destination directory if it doesn't exist..."
+      - mkdir -p /codebuild/output/src1234567890/src/  # Create the directory
       - mv frontend_image.tar /codebuild/output/src1234567890/src/
 
 artifacts:
   files:
-    - frontend_image.tar
+    - frontend_image.tar  # Ensure it's listed correctly here
     - appspec.yml
     - scripts/**
