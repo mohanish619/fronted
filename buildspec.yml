@@ -7,14 +7,7 @@ phases:
       - sudo yum update -y
       - sudo yum install -y git
       - git --version
-      - cd $HOME
-      - ls -lrta
-      - node --version
-      - npm --version
-      - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | bash
-      - source $HOME/.nvm/nvm.sh  # Manually source nvm.sh
-      - nvm install --lts
-      - node --version  # Verify Node.js version
+      
   pre_build:
     commands:
       - echo "Cloning repository..."
