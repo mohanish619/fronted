@@ -40,6 +40,6 @@ phases:
 
 artifacts:
   files:
-    - /codebuild/output/src1234567890/src/frontend_image.tar  # Use the correct path
-    - appspec.yml
-    - scripts/**
+    - '/codebuild/output/src1234567890/src/frontend_image.tar'  # Use the correct path
+    - 'appspec.yml'
+    - 'scripts/**'
