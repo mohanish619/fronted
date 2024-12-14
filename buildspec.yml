@@ -2,12 +2,6 @@ version: 0.2
 
 phases:
   install:
-    
-    commands:
-     version: 0.2 
-
-phases:
-  install:
     commands:
       - echo "Installing dependencies for CodeBuild..."
       - sudo yum update -y
