@@ -5,14 +5,15 @@ phases:
     commands:
       - echo "Installing dependencies for CodeBuild..."
       - sudo yum update -y
-      - sudo yum install -y git
+      - sudo yum install -y git curl
       - git --version
       - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
       - echo "Loading nvm..."
       - export NVM_DIR="$HOME/.nvm"
-      - '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'  # This loads nvm
+      - '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'  # This loads nvm
       - echo "Installing the latest LTS version of Node.js..."
       - nvm install --lts
+      - nvm use --lts  # Ensure it's set to use the LTS version
 
   pre_build:
     commands:
