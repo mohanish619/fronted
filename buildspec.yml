@@ -7,14 +7,15 @@ phases:
       - sudo yum update -y
       - sudo yum install -y git curl
       - git --version
-      - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-      - export NVM_DIR="$HOME/.nvm"
-      - '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
-      - '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"'
-      - echo "Installing the latest LTS version of Node.js..."
-      - source "$NVM_DIR/nvm.sh"  # Ensure nvm is available for this session
+      - echo "Installing dependencies for CodeBuild..."
+      - sudo yum update -y
+      - sudo yum install -y git
+      - git --version
+      - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+      - source ~/.bashrc
       - nvm install --lts
-      - nvm use --lts
+      - node -e "console.log('Running Node.js ' + process.version)"
+
 
   pre_build:
     commands:
