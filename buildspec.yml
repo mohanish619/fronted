@@ -15,7 +15,7 @@ phases:
       - git clone https://github.com/mohanish619/fronted.git
       - cd fronted/frontend/
       - echo "VITE_API_URL=/api" > .env
-      - npm install
+      - yum npm install
 
   build:
     commands:
