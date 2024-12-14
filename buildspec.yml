@@ -33,7 +33,7 @@ phases:
     commands:
       - echo "Saving Docker image as tarball..."
       - docker save frontend-image > frontend_image.tar
-      - ls -l  # List files in the root directory to verify frontend_image.tar
+      - ls -l  
 
 artifacts:
   files:
