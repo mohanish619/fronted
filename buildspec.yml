@@ -7,9 +7,12 @@ phases:
       - sudo yum update -y
       - sudo yum install -y git 
       - git --version
-      - . codebuild_nvm_wrapper.sh
-      - npm install
-      - node -v
+      - cd $HOME
+      - ls -lrta
+      - node --version
+      - npm --version
+      - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | bash
+      - bash $CODEBUILD_SRC_DIR/codebuild_nvm_wrapper.sh
 
   pre_build:
     commands:
