@@ -12,8 +12,9 @@ phases:
       - export NVM_DIR="$HOME/.nvm"
       - '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'
       - echo "Installing the latest LTS version of Node.js..."
-      - bash -l -c "nvm install --lts"  # Ensure `nvm` is available in the same shell session
-      - bash -l -c "nvm use --lts"      # Set the correct Node.js version
+      - source "$NVM_DIR/nvm.sh"  # Ensure nvm is available for this session
+      - nvm install --lts
+      - nvm use --lts
 
   pre_build:
     commands:
