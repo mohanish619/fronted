@@ -9,20 +9,25 @@ phases:
       - git --version
 
   pre_build:
-    commands:
-      - echo "Cloning repository..."
-      - git clone https://github.com/mohanish619/fronted.git
-      - cd fronted/frontend/
-      - echo "VITE_API_URL=/api" > .env
-      - npm install
+  commands:
+    - echo "Cloning repository..."
+    - git clone https://github.com/mohanish619/fronted.git
+    - cd fronted/frontend/
+    - echo "VITE_API_URL=/api" > .env
+    - npm install
+    - echo "Listing contents of frontend/..."
+    - ls -lrta frontend/  # This will show the structure inside frontend/
 
   build:
-    commands:
-      - echo "Building the React app..."
-      - npm run build
-      - ls -lrta frontend/build  # Verify if the build directory exists
-      - echo "Building Docker image..."
-      - docker build -t frontend-image .
+  commands:
+    - echo "Building the React app..."
+    - npm run build
+    - echo "Listing contents of frontend/build..."
+    - ls -lrta frontend/build  # Verify if the build directory exists
+    - npm run build || exit 1  # Ensure build fails loudly if there's an error
+    - echo "Building Docker image..."
+    - docker build -t frontend-image .
+
 
   post_build:
     commands:
