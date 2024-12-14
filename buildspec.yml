@@ -4,10 +4,14 @@ phases:
   install:
     
     commands:
-      - echo "Installing Docker..."
-      - yum update -y
-      - yum install -y docker
-      
+      - echo "Installing dependencies for CodeBuild..."
+      - sudo yum update -y
+      - sudo yum install -y git
+      - git --version
+      - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+      - source ~/.bashrc
+      - nvm install --lts
+      - node -e "console.log('Running Node.js ' + process.version)"
 
   pre_build:
     commands:
@@ -15,7 +19,7 @@ phases:
       - git clone https://github.com/mohanish619/fronted.git
       - cd fronted/frontend/
       - echo "VITE_API_URL=/api" > .env
-      - yum npm install
+      - npm install
 
   build:
     commands:
