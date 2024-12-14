@@ -6,6 +6,7 @@ phases:
       nodejs: 16  # Use Node.js runtime
     commands:
       - echo "Installing Docker..."
+      - npm --version
       - yum update -y
       - yum install -y docker
       - service docker start
