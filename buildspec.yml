@@ -19,7 +19,7 @@ phases:
     - ls -lrta frontend/  # This will show the structure inside frontend/
 
   build:
-  commands:
+    commands:
     - echo "Building the React app..."
     - npm run build
     - echo "Listing contents of frontend/build..."
