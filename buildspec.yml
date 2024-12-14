@@ -7,7 +7,7 @@ phases:
       - sudo yum update -y
       - sudo yum install -y git
       - git --version
-      
+
   pre_build:
     commands:
       - echo "Cloning repository..."
@@ -20,6 +20,7 @@ phases:
     commands:
       - echo "Building the React app..."
       - npm run build
+      - ls -lrta /app/frontend/build  # Confirm the build output location
       - echo "Building Docker image..."
       - docker build -t frontend-image .
 
