@@ -10,10 +10,10 @@ phases:
       - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
       - echo "Loading nvm..."
       - export NVM_DIR="$HOME/.nvm"
-      - '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'  # This loads nvm
+      - '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'
       - echo "Installing the latest LTS version of Node.js..."
-      - nvm install --lts
-      - nvm use --lts  # Ensure it's set to use the LTS version
+      - bash -l -c "nvm install --lts"  # Ensure `nvm` is available in the same shell session
+      - bash -l -c "nvm use --lts"      # Set the correct Node.js version
 
   pre_build:
     commands:
