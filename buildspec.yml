@@ -11,9 +11,10 @@ phases:
 
   pre_build:
     commands:
-      - echo "Cloning the repository..."
-      - cd /codebuild/output/src4240265109/src/github.com/mohanish619/fronted
-      - echo "Installing Node.js dependencies..."
+      - echo "Cloning repository..."
+      - git clone https://github.com/mohanish619/fronted.git
+      - cd fronted/frontend/
+      - echo "VITE_API_URL=/api" > .env
       - npm install
 
   build:
