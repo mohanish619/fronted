@@ -20,7 +20,7 @@ phases:
     commands:
       - echo "Building the React app..."
       - npm run build
-      - ls -lrta /app/frontend/build  # Confirm the build output location
+      - ls -lrta frontend/build  # Verify if the build directory exists
       - echo "Building Docker image..."
       - docker build -t frontend-image .
 
