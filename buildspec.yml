@@ -7,7 +7,7 @@ phases:
       - echo "Installing Docker..."
       - yum update -y
       - yum install -y docker
-      - service docker start
+      - systemctl start docker
       - docker --version
 
   pre_build:
@@ -32,3 +32,5 @@ phases:
 artifacts:
   files:
     - frontend_image.tar
+    - appspec.yml
+    - scripts/**
