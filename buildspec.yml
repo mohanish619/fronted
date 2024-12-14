@@ -9,7 +9,7 @@ phases:
       - git --version
 
   pre_build:
-  commands:
+    commands:
     - echo "Cloning repository..."
     - git clone https://github.com/mohanish619/fronted.git
     - cd fronted/frontend/
