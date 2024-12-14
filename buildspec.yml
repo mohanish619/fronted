@@ -12,7 +12,7 @@ phases:
       - node --version
       - npm --version
       - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | bash
-      - bash $CODEBUILD_SRC_DIR/codebuild_nvm_wrapper.sh
+      - bash . codebuild_nvm_wrapper.sh
 
   pre_build:
     commands:
