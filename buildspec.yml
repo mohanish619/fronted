@@ -23,7 +23,7 @@ phases:
     - echo "Building the React app..."
     - npm run build
     - echo "Listing contents of frontend/build..."
-    - ls frontend/build  # Verify if the build directory exists
+    - ls dist   # Verify if the build directory exists
     - npm run build || exit 1  # Ensure build fails loudly if there's an error
     - echo "Building Docker image..."
     - docker build -t frontend-image .
