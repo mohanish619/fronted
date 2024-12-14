@@ -33,7 +33,6 @@ phases:
     commands:
       - echo "Saving Docker image as tarball..."
       - docker save frontend-image > frontend_image.tar
-      - mv frontend_image.tar /codebuild/output/src1234567890/src/  # Modify path if needed
       - ls -l
 
 artifacts:
