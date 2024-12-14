@@ -7,9 +7,8 @@ phases:
       - sudo yum update -y
       - sudo yum install -y git 
       - git --version
-      - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-      - export NVM_DIR="$HOME/.nvm"
-      - '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'  # Manually source nvm.sh
+      - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+      - source ~/.bashrc  # Reload the bashrc to load NVM
       - nvm install --lts
       - node -e "console.log('Running Node.js ' + process.version)"  # Check Node.js version
 
