@@ -16,14 +16,14 @@ phases:
     - echo "VITE_API_URL=/api" > .env
     - npm install
     - echo "Listing contents of frontend/..."
-    - ls -lrta frontend/  # This will show the structure inside frontend/
+    - ls  # This will show the structure inside frontend/
 
   build:
     commands:
     - echo "Building the React app..."
     - npm run build
     - echo "Listing contents of frontend/build..."
-    - ls -lrta frontend/build  # Verify if the build directory exists
+    - ls frontend/build  # Verify if the build directory exists
     - npm run build || exit 1  # Ensure build fails loudly if there's an error
     - echo "Building Docker image..."
     - docker build -t frontend-image .
