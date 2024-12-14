@@ -1,0 +1,22 @@
+version: 0.0
+os: linux
+
+files:
+  - source: frontend_image.tar
+    destination: /home/ec2-user
+
+hooks:
+  BeforeInstall:
+    - location: scripts/install_docker.sh
+      timeout: 300
+      runas: root
+
+  AfterInstall:
+    - location: scripts/deploy_frontend.sh
+      timeout: 300
+      runas: root
+
+  ApplicationStart:
+    - location: scripts/restart_docker.sh
+      timeout: 300
+      runas: root

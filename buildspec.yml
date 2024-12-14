@@ -1,0 +1,40 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      docker: 19
+    commands:
+      - echo "Installing dependencies for CodeBuild..."
+      - sudo yum update -y
+      - sudo yum install -y git
+      - git --version
+      - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+      - source ~/.bashrc
+      - nvm install --lts
+      - node -e "console.log('Running Node.js ' + process.version)"
+
+  pre_build:
+    commands:
+      - echo "Cloning repository..."
+      - git clone https://github.com/mohanish619/fronted.git
+      - cd fronted/frontend/
+      - echo "VITE_API_URL=/api" > .env
+      - npm install
+
+  build:
+    commands:
+      - echo "Building the Docker image for the React app..."
+      - docker build -t frontend-image .
+
+  post_build:
+    commands:
+      - echo "Saving Docker image as tarball..."
+      - docker save frontend-image > frontend_image.tar
+
+artifacts:
+  files:
+    - frontend_image.tar
+    - appspec.yml
+    - scripts/**
+
