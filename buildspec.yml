@@ -40,6 +40,6 @@ phases:
 
 artifacts:
   files:
-    - 'frontend_image.tar'  # Use the correct path
+    - 'frontend/frontend_image.tar'  # Use the correct path
     - 'appspec.yml'
     - 'scripts/**'
