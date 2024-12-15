@@ -34,6 +34,8 @@ phases:
       - docker save frontend-image > frontend_image.tar
       - echo "Verifying frontend_image.tar exists:"
       - ls -l   # Verify the file location
+      - cd ../
+      - ls -l
       
 
 artifacts:
