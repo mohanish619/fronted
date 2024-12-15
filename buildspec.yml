@@ -34,12 +34,10 @@ phases:
       - docker save frontend-image > frontend_image.tar
       - echo "Verifying frontend_image.tar exists:"
       - ls -l   # Verify the file location
-      - echo "Creating destination directory if it doesn't exist..."
-      - mkdir -p /codebuild/output/src1234567890/src/  # Create the directory
-      - mv frontend_image.tar /codebuild/output/src1234567890/src/
+      
 
 artifacts:
   files:
-    - '/codebuild/output/src1234567890/src/frontend_image.tar'  # Use the correct path
+    - 'frontend/frontend_image.tar'  # Use the correct path
     - 'appspec.yml'
     - 'scripts/**'
