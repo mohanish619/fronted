@@ -6,8 +6,8 @@ phases:
       - echo "Installing dependencies for CodeBuild..."
       - sudo yum update -y
       - sudo yum install -y git docker aws-cli jq
-      - sudo service docker start
       - git --version
+      - docker --version
 
   pre_build:
     commands:
