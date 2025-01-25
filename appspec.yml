@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 
 files:
-  - source: /frontend-image.tar  # Tarball from buildspec.yml
+  - source: /build/  # Tarball from buildspec.yml
     destination: /home/ec2-user/
 
 hooks:
