@@ -2,12 +2,11 @@ version: 0.0
 os: linux
 
 files:
-  - source: build
+  - source: dist/
     destination: /home/ec2-user/
 
 hooks:
   BeforeInstall:
-      
     - location: scripts/install_docker.sh
       timeout: 300
       runas: root
