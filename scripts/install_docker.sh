@@ -7,7 +7,3 @@ sudo yum install -y docker
 
 
 
-# Verify Docker installation
-docker --version
-
-
