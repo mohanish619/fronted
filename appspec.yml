@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 
 files:
-  - source: /build/  # Tarball from buildspec.yml
+  - source: /build.zip  # Tarball from buildspec.yml
     destination: /home/ec2-user/
 
 hooks:
