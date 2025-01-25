@@ -2,8 +2,8 @@ version: 0.0
 os: linux
 
 files:
-  - source: frontend_image.tar
-    destination: /home/ec2-user
+  - source: /frontend-image.tar  # Tarball from buildspec.yml
+    destination: /home/ec2-user/
 
 hooks:
   BeforeInstall:
