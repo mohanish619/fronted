@@ -2,7 +2,13 @@ version: 0.0
 os: linux
 
 files:
-  - source: dist/
+  - source: appspec.yml
+    destination: /home/ec2-user/
+  - source: scripts/install_docker.sh
+    destination: /home/ec2-user/
+  - source: scripts/deploy_frontend.sh
+    destination: /home/ec2-user/
+  - source: scripts/restart_docker.sh
     destination: /home/ec2-user/
 
 hooks:
