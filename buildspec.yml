@@ -5,16 +5,14 @@ phases:
     commands:
       - echo "Installing dependencies for CodeBuild..."
       - sudo yum update -y
-      - sudo yum install -y git docker aws-cli
-      - docker --version  # Check if Docker is already installed
-      - echo "Checking Docker service..."
-      - docker info  # This will confirm that Docker is available and running
+      - sudo yum install -y git docker aws-cli jq
+      - sudo service docker start
       - git --version
 
   pre_build:
     commands:
       - echo "Fetching Docker Hub credentials from AWS Secrets Manager..."
-      - export DOCKER_SECRET=$(aws secretsmanager get-secret-value --secret-id <YOUR_SECRET_NAME> --query SecretString --output text)
+      - export DOCKER_SECRET=$(aws secretsmanager get-secret-value --secret-id dockerhub --query SecretString --output text)
       - export DOCKER_USERNAME=$(echo $DOCKER_SECRET | jq -r '.username')
       - export DOCKER_PASSWORD=$(echo $DOCKER_SECRET | jq -r '.password')
       - echo "Cloning repository..."
@@ -23,7 +21,7 @@ phases:
       - echo "VITE_API_URL=/api" > .env
       - npm install
       - echo "Listing contents of frontend/..."
-      - ls  # Verify the structure inside frontend/
+      - ls
 
   build:
     commands:
@@ -33,7 +31,7 @@ phases:
       - ls dist   # Verify if the build directory exists
       - echo "Building Docker image..."
       - docker build -t 7276829907/frontend-image:latest .
-      
+
   post_build:
     commands:
       - echo "Logging into Docker Hub with credentials from Secrets Manager..."
