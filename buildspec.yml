@@ -5,41 +5,43 @@ phases:
     commands:
       - echo "Installing dependencies for CodeBuild..."
       - sudo yum update -y
-      - sudo yum install -y git
+      - sudo yum install -y git docker aws-cli
+      - sudo service docker start
       - git --version
 
   pre_build:
     commands:
-    - echo "Cloning repository..."
-    - git clone https://github.com/mohanish619/fronted.git
-    - cd fronted/frontend/
-    - echo "VITE_API_URL=/api" > .env
-    - npm install
-    - echo "Listing contents of frontend/..."
-    - ls  # This will show the structure inside frontend/
+      - echo "Fetching Docker Hub credentials from AWS Secrets Manager..."
+      - export DOCKER_SECRET=$(aws secretsmanager get-secret-value --secret-id <YOUR_SECRET_NAME> --query SecretString --output text)
+      - export DOCKER_USERNAME=$(echo $DOCKER_SECRET | jq -r '.username')
+      - export DOCKER_PASSWORD=$(echo $DOCKER_SECRET | jq -r '.password')
+      - echo "Cloning repository..."
+      - git clone https://github.com/mohanish619/fronted.git
+      - cd fronted/frontend/
+      - echo "VITE_API_URL=/api" > .env
+      - npm install
+      - echo "Listing contents of frontend/..."
+      - ls  # Verify the structure inside frontend/
 
   build:
     commands:
-    - echo "Building the React app..."
-    - npm run build
-    - echo "Listing contents of frontend/build..."
-    - ls dist   # Verify if the build directory exists
-    - npm run build || exit 1  # Ensure build fails loudly if there's an error
-    - echo "Building Docker image..."
-    - docker build -t frontend-image .
-
+      - echo "Building the React app..."
+      - npm run build
+      - echo "Listing contents of dist directory..."
+      - ls dist   # Verify if the build directory exists
+      - echo "Building Docker image..."
+      - docker build -t 7276829907/frontend-image:latest .
+      
   post_build:
     commands:
-      - echo "Saving Docker image as tarball..."
-      - docker save frontend-image > frontend_image.tar
-      - echo "Verifying frontend_image.tar exists:"
-      - ls -l   # Verify the file location
-      - cd ../
-      - ls -l
-      
+      - echo "Logging into Docker Hub with credentials from Secrets Manager..."
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - echo "Pushing Docker image to Docker Hub..."
+      - docker tag 7276829907/frontend-image:latest 7276829907/frontend-image:latest
+      - docker push 7276829907/frontend-image:latest
+      - echo "Docker image pushed successfully."
 
 artifacts:
   files:
-    - 'frontend/frontend_image.tar'  # Use the correct path
     - 'appspec.yml'
     - 'scripts/**'
