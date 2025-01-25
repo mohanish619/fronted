@@ -6,7 +6,9 @@ phases:
       - echo "Installing dependencies for CodeBuild..."
       - sudo yum update -y
       - sudo yum install -y git docker aws-cli
-      - sudo service docker start
+      - docker --version  # Check if Docker is already installed
+      - echo "Checking Docker service..."
+      - docker info  # This will confirm that Docker is available and running
       - git --version
 
   pre_build:
