@@ -12,15 +12,18 @@ phases:
   pre_build:
     commands:
       - echo "Fetching Docker Hub credentials from AWS Secrets Manager..."
+      # Fetching the secret from AWS Secrets Manager
       - export DOCKER_SECRET=$(aws secretsmanager get-secret-value --secret-id dockerhub --query SecretString --output text)
+      # Extracting username and PAT from the secret
       - export DOCKER_USERNAME=$(echo $DOCKER_SECRET | jq -r '.username')
       - export DOCKER_PASSWORD=$(echo $DOCKER_SECRET | jq -r '.password')
       - echo "Cloning repository..."
+      # Cloning the repository (frontend React app)
       - git clone https://github.com/mohanish619/fronted.git
       - cd fronted/frontend/
-      - echo "VITE_API_URL=/api" > .env
+      - echo "VITE_API_URL=/api" > .env  # Setting the VITE_API_URL environment variable
       - npm install
-      - echo "Listing contents of frontend/..."
+      - echo "Listing contents of frontend/ directory..."
       - ls
 
   build:
@@ -28,15 +31,19 @@ phases:
       - echo "Building the React app..."
       - npm run build
       - echo "Listing contents of dist directory..."
-      - ls dist   # Verify if the build directory exists
+      # Verifying the build directory
+      - ls dist
       - echo "Building Docker image..."
+      # Building the Docker image for the React app
       - docker build -t 7276829907/frontend-image:latest .
 
   post_build:
     commands:
       - echo "Logging into Docker Hub with credentials from Secrets Manager..."
+      # Log in to Docker Hub using the extracted PAT
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - echo "Pushing Docker image to Docker Hub..."
+      # Tagging and pushing the Docker image to Docker Hub
       - docker tag 7276829907/frontend-image:latest 7276829907/frontend-image:latest
       - docker push 7276829907/frontend-image:latest
       - echo "Docker image pushed successfully."
