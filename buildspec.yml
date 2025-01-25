@@ -52,3 +52,5 @@ artifacts:
   files:
     - 'appspec.yml'
     - 'scripts/**'
+    - 'dist/**'  # Include the dist directory that contains the built React app
+
