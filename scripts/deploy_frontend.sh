@@ -1,10 +1,14 @@
 #!/bin/bash
 echo "Deploying frontend Docker container..."
 
-# Load the Docker image from tarball
-docker load < /home/ec2-user/frontend_image.tar
+# Stop and remove the existing container if it's running
+docker stop frontend-container || true
+docker rm frontend-container || true
+
+# Pull the latest Docker image from Docker Hub
+docker pull 7276829907/frontend-image:latest
 
 # Run the Docker container with the required port
-docker run -d -p 80:80 --name frontend-container frontend-image
+docker run -d -p 80:80 --name frontend-container 7276829907/frontend-image:latest
 
 echo "Frontend Docker container is up and running!"
