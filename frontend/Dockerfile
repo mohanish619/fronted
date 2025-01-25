@@ -9,15 +9,14 @@ COPY . /app/frontend
 RUN npm install
 RUN npm run build
 
-# List the contents of the /app/frontend directory to verify the build output
+# List the contents of /app/frontend to verify the build output
 RUN ls -l /app/frontend
 
 # Production Stage
 FROM nginx:alpine
 
-# Copy the build folder into the Nginx server
-# Adjust this path to match the location where the build is output
-COPY --from=build /app/frontend/build /usr/share/nginx/html
+# Copy the dist folder (instead of build) from the build stage into the Nginx server
+COPY --from=build /app/frontend/dist /usr/share/nginx/html
 
 # Expose port 80 to make the app accessible
 EXPOSE 80
