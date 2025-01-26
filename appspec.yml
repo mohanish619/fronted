@@ -14,17 +14,14 @@ files:
 hooks:
   BeforeInstall:
     - location: scripts/install_docker.sh
+      input: "chmod +x /home/ec2-user/scripts/install_docker.sh
       timeout: 300
       runas: root
-    - location: /bin/bash
-      input: "chmod +x /home/ec2-user/scripts/install_docker.sh"
-      timeout: 60
-      runas: root
-    - location: /bin/bash
+    - location: scripts/deploy_frontend.sh
       input: "chmod +x /home/ec2-user/scripts/deploy_frontend.sh"
       timeout: 60
       runas: root
-    - location: /bin/bash
+    - location: scripts/restart_docker.sh
       input: "chmod +x /home/ec2-user/scripts/restart_docker.sh"
       timeout: 60
       runas: root
