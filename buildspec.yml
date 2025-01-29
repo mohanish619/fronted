@@ -8,6 +8,10 @@ phases:
       - sudo yum install -y git docker aws-cli jq
       - git --version
       - docker --version
+      - echo "Retrieving GitHub credentials from Secrets Manager..."
+      - GITHUB_SECRET=$(aws secretsmanager get-secret-value --secret-id github/credentials --query SecretString --output text)
+      - export GITHUB_USERNAME=$(echo $GITHUB_SECRET | jq -r .GITHUB_USERNAME)
+      - export GITHUB_PAT=$(echo $GITHUB_SECRET | jq -r .GITHUB_PAT)
 
   pre_build:
     commands:
@@ -19,7 +23,7 @@ phases:
       - export DOCKER_PASSWORD=$(echo $DOCKER_SECRET | jq -r '.password')
       - echo "Cloning repository..."
       # Cloning the repository (frontend React app)
-      - git clone https://github.com/mohanish619/fronted.git
+      - git clone https://$GITHUB_USERNAME:$GITHUB_PAT@github.com/mohanish619/fronted.git
       - cd fronted/frontend/
       - echo "VITE_API_URL=/api" > .env  # Setting the VITE_API_URL environment variable
       - npm install
